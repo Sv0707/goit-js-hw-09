@@ -8,22 +8,23 @@ function getRandomHexColor() {
       stop: document.querySelector("[data-stop]")
   }
 
+let intervalId = null;
+
 refs.stop.disabled = true;
-let timerId = null;
 
 const changeBodyColor = () => {
     refs.body.style.backgroundColor = getRandomHexColor();
 }
 
-  refs.start.addEventListener("click", e => {
+refs.start.addEventListener("click", e => {
     changeBodyColor();
     refs.start.disabled = true;
     refs.stop.disabled = false;
-    timerId = setInterval(changeBodyColor, 1000);
+    intervalId = setInterval(changeBodyColor, 1000);
   });
 
   refs.stop.addEventListener("click", e => {
-    clearInterval(timerId);
+    clearInterval(intervalId);
     refs.start.disabled = false;
     refs.stop.disabled = true;
   })
