@@ -2,6 +2,7 @@
 import flatpickr from 'flatpickr';
 // Дополнительный импорт стилей
 import 'flatpickr/dist/flatpickr.min.css';
+require("flatpickr/dist/themes/material_blue.css");
 
 const refs = {
   days: document.querySelector('[data-days]'),
@@ -36,16 +37,15 @@ function convertMs(ms) {
 const countTime = function (selectData) {
   const now = Date.now();
   const diff = selectData.getTime() - now;
-  if (diff < 0) {
-    window.alert('Please choose a date in the future');
-  }
   if (diff < 1000) {
-    clearInterval(intervalId);}
-console.log(diff);
-    refs.days.textContent = convertMs(diff).days;
-    refs.hours.textContent = convertMs(diff).hours;
-    refs.minutes.textContent = convertMs(diff).minutes;
-    refs.seconds.textContent = convertMs(diff).seconds;
+    clearInterval(intervalId);
+    refs.start.disabled = true;
+  }
+
+    refs.days.textContent = String(convertMs(diff).days).padStart(2, 0);
+    refs.hours.textContent = String(convertMs(diff).hours).padStart(2, 0);
+    refs.minutes.textContent = String(convertMs(diff).minutes).padStart(2, 0);
+    refs.seconds.textContent = String(convertMs(diff).seconds).padStart(2, 0);
 };
 
 const options = {
@@ -55,8 +55,13 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     refs.start.disabled = false;
-    countTime(selectedDates[0]);
-    refs.start.addEventListener('click', e => {
+    const now = Date.now();
+    const diff = selectedDates[0].getTime() - now;
+    if (diff < 0) {
+      window.alert('Please choose a date in the future');
+    }
+      refs.start.addEventListener('click', e => {
+      countTime(selectedDates[0]);
       intervalId = setInterval(() => {
         countTime(selectedDates[0]);
       }, 1000);
