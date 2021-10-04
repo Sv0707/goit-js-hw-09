@@ -2,7 +2,7 @@
 import flatpickr from 'flatpickr';
 // Дополнительный импорт стилей
 import 'flatpickr/dist/flatpickr.min.css';
-require("flatpickr/dist/themes/material_blue.css");
+require("flatpickr/dist/themes/dark.css");
 
 const refs = {
   days: document.querySelector('[data-days]'),
@@ -34,6 +34,10 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
+const addLeadingZero = function(value) {
+  return String(value).padStart(2, 0);
+}
+
 const countTime = function (selectData) {
   const now = Date.now();
   const diff = selectData.getTime() - now;
@@ -42,10 +46,10 @@ const countTime = function (selectData) {
     refs.start.disabled = true;
   }
 
-    refs.days.textContent = String(convertMs(diff).days).padStart(2, 0);
-    refs.hours.textContent = String(convertMs(diff).hours).padStart(2, 0);
-    refs.minutes.textContent = String(convertMs(diff).minutes).padStart(2, 0);
-    refs.seconds.textContent = String(convertMs(diff).seconds).padStart(2, 0);
+    refs.days.textContent = addLeadingZero(convertMs(diff).days);
+    refs.hours.textContent = addLeadingZero(convertMs(diff).hours);
+    refs.minutes.textContent = addLeadingZero(convertMs(diff).minutes);
+    refs.seconds.textContent = addLeadingZero(convertMs(diff).seconds);
 };
 
 const options = {

@@ -16,3 +16,46 @@ img {
   display: block;
   max-width: 100%;
 }
+
+button {
+  width: 100px;
+  height: 50px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.87;
+  letter-spacing: 0.06em;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+#date-selector {
+  width: 200px;
+  height: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border: 1px solid;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.87;
+  letter-spacing: 0.06em;
+}
+
+.value {
+  margin-left: 20px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.87;
+  letter-spacing: 0.06em;
+}
+
+.label {
+  padding-left: 5px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.87;
+  letter-spacing: 0.06em;
+}
