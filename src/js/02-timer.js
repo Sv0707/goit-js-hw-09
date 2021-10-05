@@ -16,6 +16,8 @@ const refs = {
 
 let intervalId = null;
 refs.start.disabled = true;
+refs.start.classList.add("button");
+refs.stop.classList.add("button");
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
