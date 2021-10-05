@@ -1,5 +1,6 @@
 // Описан в документации
 import flatpickr from 'flatpickr';
+import Notiflix from 'notiflix';
 // Дополнительный импорт стилей
 import 'flatpickr/dist/flatpickr.min.css';
 require("flatpickr/dist/themes/dark.css");
@@ -63,7 +64,7 @@ const options = {
     const now = Date.now();
     const diff = selectedDates[0].getTime() - now;
     if (diff < 0) {
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.warning('Please choose a date in the future');
     }
       refs.start.addEventListener('click', e => {
       countTime(selectedDates[0]);

@@ -1,15 +1,24 @@
-const createPromise = (position, delay) => {
-  new Promise((resolve, reject) => {
+
+import Notiflix from 'notiflix';
+
+const createPromise = (number, ms) => {
+  return new Promise((resolve, reject) => {
     
     setTimeout(() => {      
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
-        resolve(console.log(`✅ Fulfilled promise ${position} in ${delay}ms`));
+        resolve({
+          position: number,
+          delay: ms,
+        });
       } 
       else {
-        reject(console.log(`❌ Rejected promise ${position} in ${delay}ms`));
+        reject({
+          position: number,
+          delay: ms,
+        });
           }
-        }, delay);
+        }, ms);
 
   }
 )
@@ -24,8 +33,10 @@ refs.form.addEventListener("submit", e => {
 const amount = parseInt(e.currentTarget.elements.amount.value);
 const step = parseInt(e.currentTarget.elements.step.value);
 let delay = parseInt(e.currentTarget.elements.delay.value);
-for (let i = 0; i < amount; i++) {
-  createPromise(i, delay);
+for (let i = 1; i <= amount; i++) {
+  createPromise(i, delay)
+  .then(({ position, delay }) => Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`))
+  .catch(({ position, delay }) => Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`));
   delay += step;
 }
 })
