@@ -3,20 +3,17 @@ import Notiflix from 'notiflix';
 
 const createPromise = (number, ms) => {
   return new Promise((resolve, reject) => {
-    
+    const obj ={
+      position: number,
+      delay: ms,
+    };
     setTimeout(() => {      
       const shouldResolve = Math.random() > 0.3;
       if (shouldResolve) {
-        resolve({
-          position: number,
-          delay: ms,
-        });
+        resolve(obj);
       } 
       else {
-        reject({
-          position: number,
-          delay: ms,
-        });
+        reject(obj);
           }
         }, ms);
 

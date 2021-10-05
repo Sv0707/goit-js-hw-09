@@ -64,6 +64,7 @@ const options = {
     const now = Date.now();
     const diff = selectedDates[0].getTime() - now;
     if (diff < 0) {
+      refs.start.disabled = true;
       Notiflix.Notify.warning('Please choose a date in the future');
     }
       refs.start.addEventListener('click', e => {
