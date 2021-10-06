@@ -15,6 +15,7 @@ const refs = {
 };
 
 let intervalId = null;
+let selectDate = new Date();
 refs.start.disabled = true;
 refs.start.classList.add("button");
 refs.stop.classList.add("button");
@@ -55,6 +56,14 @@ const countTime = function (selectData) {
     refs.seconds.textContent = addLeadingZero(convertMs(diff).seconds);
 };
 
+const resetTime = function () {
+  clearInterval(intervalId);
+  refs.days.textContent = "00";
+  refs.hours.textContent = "00";
+  refs.minutes.textContent = "00";
+  refs.seconds.textContent = "00";
+}
+
 const options = {
   enableTime: true,
   dateFormat: "d.m.Y H:i",
@@ -64,22 +73,26 @@ const options = {
   onClose(selectedDates) {
     refs.start.disabled = false;
     const now = Date.now();
-    const diff = selectedDates[0].getTime() - now;
-    if (diff < 0) {
+    if (selectedDates[0] < now) {
       refs.start.disabled = true;
       Notiflix.Notify.warning('Please choose a date in the future');
+      resetTime();
     }
+    if (selectedDates[0] > now) {
+      selectDate = selectedDates[0];
+      const diff = selectDate.getTime() - now;
       refs.start.addEventListener('click', e => {
-      countTime(selectedDates[0]);
+      countTime(selectDate);
       intervalId = setInterval(() => {
-        countTime(selectedDates[0]);
+        countTime(selectDate);
       }, 1000);
     });
+  }
   },
 };
 
-refs.stop.addEventListener('click', e => {
-  clearInterval(intervalId);
-});
+const calendar = flatpickr('#date-selector', options);
 
-flatpickr('#date-selector', options);
+refs.stop.addEventListener('click', e => {
+  resetTime();
+});
